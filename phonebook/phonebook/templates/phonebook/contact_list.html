@@ -1,0 +1,29 @@
+{%extends 'phonebook/base.html'%}
+{%block title%}Contacts{%endblock%}
+
+{%block content%}
+<div class="container">
+    <div class="row">
+        {%if contacts%}
+            {% for contact in contacts %}
+                <div class="col-sm-3">
+                    <div class="card card-body my-1">
+                        <img src="{{contact.cover.url}}" class="img img-responsive" alt='' style="height: 150px; width: 150%;">
+                    </div>
+                    <div class="card-header" style="background-color: {%if contact.is_male%}blue;{%else%}red;{%endif%}">
+                        {% if contact.is_male%}<i class="fas fa-venus"></i>{%else%}<i class="fas fa-mars"></i>{%endif%}&nbsp; {{contact.name}}
+                    </div>
+                    <div class="card-body" style="color: {%if contact.is_male%}blue;{%else%}red;{%endif%}">
+                        <p><i class="fas fa-envelope"></i>&nbsp; {{contact.email}}</p>
+                        <p><i class="fas fa-phone"></i>&nbsp; {{contact.telephone}}</p>
+                        <p><i class="fas fa-user-circle"></i>&nbsp; {{contact.relation}}</p>
+                        <p><i class="fas fa-globe"></i>&nbsp; {{contact.residence}}</p>
+                        <a href="{%url 'phonebook:update-contact' contact.id %}" class="btn btn-info btn-sm/"><i class="fas fa-edit"></i></a>
+                        <a href="{%url 'phonebook:delete-contact' contact.id %}" class="btn btn-danger btn-sm/"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+            {%endfor%}
+        {%endif%}
+    </div>
+</div>
+{%endblock%}
